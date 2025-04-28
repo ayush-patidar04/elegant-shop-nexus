@@ -46,7 +46,9 @@ const ProductDetailPage = () => {
   
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product, quantity, selectedVariants);
+      // Fix: Check the argument count expected by addToCart in CartContext
+      // and adjust accordingly. Pass product and quantity, making selectedVariants optional
+      addToCart(product, quantity);
       toast.success(`${product.name} added to cart`);
     }
   };
