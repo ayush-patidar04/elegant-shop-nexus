@@ -12,7 +12,9 @@ import {
   Filter, 
   X, 
   Search, 
-  SlidersHorizontal 
+  SlidersHorizontal,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { 
   Pagination,
@@ -188,6 +190,19 @@ const ProductsPage = () => {
 
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
 
+  // Handle pagination navigation with Button components instead of PaginationLink
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      handlePageChange(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pageCount) {
+      handlePageChange(currentPage + 1);
+    }
+  };
+
   return (
     <div className="py-8">
       <div className="container-custom">
@@ -330,10 +345,29 @@ const ProductsPage = () => {
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
-                      <PaginationPrevious 
-                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                        disabled={currentPage === 1}
-                      />
+                      {/* Replace PaginationPrevious with Button + Link */}
+                      {currentPage === 1 ? (
+                        <Button 
+                          variant="outline" 
+                          size="default"
+                          className="gap-1 pl-2.5 cursor-not-allowed opacity-50"
+                          onClick={() => {}}
+                          disabled
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                          <span>Previous</span>
+                        </Button>
+                      ) : (
+                        <Button 
+                          variant="outline" 
+                          size="default"
+                          className="gap-1 pl-2.5"
+                          onClick={handlePreviousPage}
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                          <span>Previous</span>
+                        </Button>
+                      )}
                     </PaginationItem>
                     
                     {[...Array(pageCount)].map((_, index) => {
@@ -368,10 +402,29 @@ const ProductsPage = () => {
                     })}
                     
                     <PaginationItem>
-                      <PaginationNext 
-                        onClick={() => handlePageChange(Math.min(pageCount, currentPage + 1))}
-                        disabled={currentPage === pageCount}
-                      />
+                      {/* Replace PaginationNext with Button */}
+                      {currentPage === pageCount ? (
+                        <Button 
+                          variant="outline"
+                          size="default"
+                          className="gap-1 pr-2.5 cursor-not-allowed opacity-50"
+                          onClick={() => {}}
+                          disabled
+                        >
+                          <span>Next</span>
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      ) : (
+                        <Button 
+                          variant="outline"
+                          size="default"
+                          className="gap-1 pr-2.5"
+                          onClick={handleNextPage}
+                        >
+                          <span>Next</span>
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      )}
                     </PaginationItem>
                   </PaginationContent>
                 </Pagination>

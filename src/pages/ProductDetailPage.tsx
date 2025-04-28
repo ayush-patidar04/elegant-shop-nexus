@@ -6,7 +6,7 @@ import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ChevronLeft, ShoppingCart, Star, Truck, Heart } from 'lucide-react';
-import { toast } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 import { ProductVariant } from '@/types';
 
 const ProductDetailPage = () => {
